@@ -1,0 +1,3 @@
+/Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented/CMakeFiles/FQ_reimplemented.dir
+/Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented/CMakeFiles/edit_cache.dir
+/Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented/CMakeFiles/rebuild_cache.dir
