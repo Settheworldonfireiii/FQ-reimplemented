@@ -11,6 +11,16 @@
 #include <vector>
 
 #include <tuple>
+#include <random>
+
+#if defined(__SSE2__)
+#if defined(HAVE_SIMDE)
+#include "simde/x86/sse2.h"
+#else
+#include <emmintrin.h>
+#endif
+#endif
+
 
 
 // maybe not needed
@@ -22,8 +32,73 @@
 #include "concurrentqueue.h"
 
 
+
+#define ALWAYS_INLINE inline __attribute__((__always_inline__))
+
+
 static const constexpr size_t MIN_BACKOFF_ITERS = 32;
 static const size_t MAX_BACKOFF_ITERS = 1024;
+
+ALWAYS_INLINE static void cpuRelax() {
+#if defined(__SSE2__)  // AMD and Intel
+#if defined(HAVE_SIMDE)
+    simde_mm_pause();
+#else
+    _mm_pause();
+#endif
+#elif defined(__i386__) || defined(__x86_64__)
+    asm volatile("pause");
+#elif defined(__aarch64__)
+  asm volatile("wfe");
+#elif defined(__armel__) || defined(__ARMEL__)
+  asm volatile ("nop" ::: "memory");
+#elif defined(__arm__) || defined(__aarch64__)
+  __asm__ __volatile__ ("yield" ::: "memory");
+#elif defined(__ia64__)  // IA64
+  __asm__ __volatile__ ("hint @pause");
+#elif defined(__powerpc__) || defined(__ppc__) || defined(__PPC__)
+   __asm__ __volatile__ ("or 27,27,27" ::: "memory");
+#else  // everything else.
+   asm volatile ("nop" ::: "memory");
+#endif
+}
+
+
+ALWAYS_INLINE void yieldSleep() {
+    using namespace std::chrono;
+    std::chrono::microseconds ytime(500);
+    std::this_thread::sleep_for(ytime);
+}
+
+ALWAYS_INLINE void backoffExp(size_t& curMaxIters) {
+    thread_local std::uniform_int_distribution<size_t> dist;
+
+    // see : https://github.com/coryan/google-cloud-cpp-common/blob/a6e7b6b362d72451d6dc1fec5bc7643693dbea96/google/cloud/internal/random.cc
+#if defined(__linux) && defined(__GLIBCXX__) && __GLIBCXX__ >= 20200128
+    thread_local std::random_device rd("/dev/urandom");
+#else
+    thread_local std::random_device rd;
+#endif  // defined(__GLIBCXX__) && __GLIBCXX__ >= 20200128
+
+    thread_local std::minstd_rand gen(rd());
+    const size_t spinIters =
+            dist(gen, decltype(dist)::param_type{0, curMaxIters});
+    curMaxIters = std::min(2 * curMaxIters, MAX_BACKOFF_ITERS);
+    for (size_t i = 0; i < spinIters; i++) {
+        cpuRelax();
+    }
+}
+
+
+ALWAYS_INLINE void backoffOrYield(size_t& curMaxDelay) {
+    if (curMaxDelay >= MAX_BACKOFF_ITERS) {
+        yieldSleep();
+        curMaxDelay = MIN_BACKOFF_ITERS;
+    }
+    backoffExp(curMaxDelay);
+}
+
+KSEQ_INIT(gzFile, gzread)
 
 class ReadChunk {
 public:
@@ -36,12 +111,19 @@ public:
     typename std::vector<T>::iterator end() { return group_.begin() + have_; }
 */
 
-   std::string& operator[](size_t i) { return group_[i]; }
+  /* std::string& operator[](size_t i) { return group_[i]; }
    std::vector<std::string>::iterator begin() { return group_.begin(); }
    std::vector<std::string>::iterator end() { return group_.begin() + have_; }
+*/
+    kseq_t& operator[](size_t i) { return group_[i]; }
+    std::vector<kseq_t>::iterator begin() { return group_.begin(); }
+    std::vector<kseq_t>::iterator end() { return group_.begin() + have_; }
+
 
 private:
-    std::vector<std::string> group_;
+    //std::vector<std::string> group_;
+    std::vector<kseq_t> group_;
+
     size_t want_;
     size_t have_;
 };
@@ -53,18 +135,27 @@ public:
             : pt_(std::move(pt)), ct_(std::move(ct)) {}
     moodycamel::ConsumerToken& consumerToken() { return ct_; }
     moodycamel::ProducerToken& producerToken() { return pt_; }
-    // get a reference to the chunk this ReadGroup owns
+    //  a reference to the chunk this ReadGroup owns
     std::unique_ptr<ReadChunk>& chunkPtr() { return chunk_; }
     // get a *moveable* reference to the chunk this ReadGroup owns
     std::unique_ptr<ReadChunk>&& takeChunkPtr() { return std::move(chunk_); }
     inline void have(size_t num) { chunk_->have(num); }
     inline size_t size() { return chunk_->size(); }
     inline size_t want() const { return chunk_->want(); }
-    std::string& operator[](size_t i) { return (*chunk_)[i]; }
+    /*std::string& operator[](size_t i) { return (*chunk_)[i]; }
     typename std::vector<std::string>::iterator begin() { return chunk_->begin(); }
     typename std::vector<std::string>::iterator end() {
         return chunk_->begin() + chunk_->size();
-    }
+    }*/
+
+    kseq_t& operator[](size_t i) { return (*chunk_)[i]; };
+    typename std::vector<kseq_t>::iterator begin() { return chunk_->begin(); }
+    typename std::vector<kseq_t>::iterator end()
+    {
+
+            return chunk_->begin() + chunk_->size();
+        }
+
     void setChunkEmpty() { chunk_.release(); }
     bool empty() const { return chunk_.get() == nullptr; }
 
@@ -119,7 +210,23 @@ class ReadParser
     };
 
 
-    ~ReadParser(){};
+    ~ReadParser()
+    {
+        if (isActive_ or numParsing_ > 0) {
+            // Think about if this is too noisy --- but the user really shouldn't do this.
+            std::cerr << "\n\nEncountered ReadParser destructor while parser was still marked active (or while parsing threads were still active). "
+                      << "Be sure to call stop() before letting ReadParser leave scope!\n";
+            try {
+                stop();
+            } catch (const std::exception& e) {
+                // Should exiting here be a user-definable behavior?
+                // What is the right mechanism for that.
+                std::cerr << "\n\nParser encountered exception : " << e.what() << "\n";
+                std::exit(-1);
+            }
+        }
+        // Otherwise, we are good to go (i.e., destruct)
+    };
     bool start() {
         if (numParsing_ == 0) {
             isActive_ = true;
@@ -161,15 +268,85 @@ class ReadParser
             return false;
         }
     }
-    bool stop();
-    ReadGroup getReadGroup();
-    bool refill(ReadGroup& rg);
-    void finishedWithGroup(ReadGroup& s);
+    bool stop()
+    {
+        bool ret{false};
+        if (isActive_) {
+            for (auto& t : parsingThreads_) {
+                t->join();
+            }
+            isActive_ = false;
+            for (auto& res : threadResults_) {
+                if (res == -3) {
+                    throw std::range_error("Error reading from the FASTA/Q stream. Make sure the file is valid.");
+                } else if (res < -1) {
+                    std::stringstream ss;
+                    ss << "Error reading from the FASTA/Q stream. Minimum return code for left and right read was ("
+                       << res << "). Make sure the file is valid.";
+                    throw std::range_error(ss.str());
+                }
+            }
+            ret = true;
+        } else {
+            // Is this being too loud?  Again, if this triggers, the user has violated the API.
+            std::cerr << "stop() was called on a FastxParser that was not marked active. Did you remember "
+                      << "to call start() on this parser?\n";
+        }
+        std::cout<<"are we here 295"<<std::endl;
+        return ret;
+
+    };
+    ReadGroup getReadGroup()
+    {
+        return ReadGroup(getProducerToken_(), getConsumerToken_());
+    };
+
+    bool refill(ReadGroup& seqs)
+    {
+        std::cout<<"are we here 306"<<std::endl;
+
+        finishedWithGroup(seqs);
+        auto curMaxDelay = MIN_BACKOFF_ITERS;
+        std::cout<<"are we here 310"<<std::endl;
+
+        while (numParsing_ > 0) {
+            std::cout<<"are we here 313"<<std::endl;
+             //dummy
+            //if (readQueue_.try_dequeue(seqs.consumerToken(), seqs.chunkPtr())) {
+                std::cout<<"are we here 315"<<std::endl;
+
+                return true;
+            //}
+            backoffOrYield(curMaxDelay);
+        }
+        std::cout<<"are we here 322"<<std::endl;
+
+        return readQueue_.try_dequeue(seqs.consumerToken(), seqs.chunkPtr());
+    };
+    void finishedWithGroup(ReadGroup& s)
+    {
+        {
+            // If this read group is holding a valid chunk, then give it back
+            if (!s.empty()) {
+                seqContainerQueue_.enqueue(s.producerToken(), std::move(s.takeChunkPtr()));
+                s.setChunkEmpty();
+            }
+        }
+    };
+
+
+
 
 
 private:
-    moodycamel::ProducerToken getProducerToken_();
-    moodycamel::ConsumerToken getConsumerToken_();
+    moodycamel::ProducerToken getProducerToken_()
+    {
+        return moodycamel::ProducerToken(seqContainerQueue_);
+    };
+    moodycamel::ConsumerToken getConsumerToken_()
+    {
+        return moodycamel::ConsumerToken(readQueue_);
+    };
 
     std::vector<std::vector<std::string>> inputStreams_;
     uint32_t numParsers_;
@@ -213,10 +390,10 @@ private:
         {
            size_t numfiles = inputStreams.size();
            const int nf = numfiles;
-           constexpr int nuf = nf;
+           //constexpr int nuf = nf;
            // std::tuple::tuple<string>()
            std::tuple<std::vector<std::string>> files;
-           std::tuple<std::make_index_sequence<nf>> tpl;
+          // std::tuple<std::make_index_sequence<nf>> tpl;
             for(int i = 0; i <numfiles; i++)
             {
 
@@ -228,7 +405,7 @@ private:
             Read rd;
 
         }
-        std::cout<<"are we here?222"<<std::endl;
+        std::cout<<"are we here?398"<<std::endl;
         return 0;
 
         //while (rd and (kseq_read(seq2) > 0)) {

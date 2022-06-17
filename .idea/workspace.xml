@@ -15,19 +15,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="de8e19c2-0692-467e-a3c5-ff14482c1eb8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/FQ-reimplemented.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ReadParser.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barcode_utils.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compress.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datamatrix_utils.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gzip_utils.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/igzip_lib.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/izlib.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libdeflate.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReadParser.h" beforeDir="false" afterPath="$PROJECT_DIR$/ReadParser.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/FQ_reimplemented.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/FQ_reimplemented.dir/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/FQ_reimplemented" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/FQ_reimplemented" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +82,7 @@
       <updated>1655334656311</updated>
       <workItem from="1655334657592" duration="13005000" />
       <workItem from="1655398090724" duration="6000" />
-      <workItem from="1655398110283" duration="72000" />
+      <workItem from="1655398110283" duration="8879000" />
     </task>
     <servers />
   </component>

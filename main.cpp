@@ -18,6 +18,25 @@ struct InputFile {
 };
 vector<InputFile> inputs;
 
+struct result_t {
+    int collector_pos;
+    int cell_id;
+    uint64_t umi;
+    int feature_id;
+
+    result_t(int a1, int a2, uint64_t a3, int a4) : collector_pos(a1), cell_id(a2), umi(a3), feature_id(a4) {}
+};
+
+
+
+inline string safe_substr(const string& sequence, size_t pos, size_t length) {
+    if (pos + length > sequence.length()) {
+        printf("Error: Sequence length %zu is too short (expected to be at least %zu)!\n", sequence.length(), pos + length);
+        exit(-1);
+    }
+    return sequence.substr(pos, length);
+}
+
 void parse_feature_names(int n_feature, std::vector<std::string>& feature_names, int& n_cat, std::vector<std::string>& cat_names, std::vector<int>& cat_nfs, std::vector<int>& feature_categories) {
     size_t pos;
     std::string cat_str;
@@ -210,6 +229,91 @@ int main(int argc, char* argv[]) {
 
     ReadParser parser(inputss, nt);
     parser.start();
+    int cnt = 0;
+    mutex work_mutex;
+    vector<thread> readers;
+    for (size_t i = 0; i < nt; ++i) {
+        readers.emplace_back([&, i]() {
+            std::cout<<"are we here 237 main"<<std::endl;
+            string cell_barcode, umi, feature_barcode;
+            uint64_t binary_cell, binary_umi, binary_feature;
+            size_t read1_len;
+            int feature_id, collector_pos;
+
+            HashIterType cell_iter, feature_iter;
+            vector<result_t> results;
+
+            int thread_read_cnt = 0;
+            auto rg = parser.getReadGroup();
+            //std::cout<<rg.
+            std::cout<<"are we here 249 main"<<std::endl;
+            //std::cout<<int(rg.size())<<std::endl;
+
+            while (!parser.refill(rg)) {
+                // should be while (parser.refill(rg)) {
+
+                std::cout<<"are we here 252 main"<<std::endl;
+
+              /*  for (auto& seqPair : rg) {
+                    std::cout<<"are we here 255 main"<<std::endl;
+
+                    auto& read1 = seqPair;
+                    std::cout<<" JE "<<read1.seq.l<<"  ICI"<<std::endl;
+                    //auto& read2 = seqPair.second;
+                    //std::cout<<" SUIS "<<read2.seq.l<<"  ICI"<<std::endl;
+
+                    ++thread_read_cnt;
+
+                    cell_barcode = safe_substr(read1.seq.s, 0, cell_blen);
+                    binary_cell = barcode_to_binary(cell_barcode);
+                    cell_iter = cell_index.find(binary_cell);
+
+                    if (cell_iter != cell_index.end() && cell_iter->second.item_id >= 0) {
+                        //if (extract_feature_barcode(read2.seq.s, feature_blen, feature_type, feature_barcode)) {
+                            binary_feature = barcode_to_binary(feature_barcode);
+                            feature_iter = feature_index.find(binary_feature);
+                            if (feature_iter != feature_index.end() && feature_iter->second.item_id >= 0) {
+                                read1_len = read1.seq.l;
+                                if (read1_len < cell_blen + umi_len) {
+                                    printf("Warning: Detected read1 length %zu is smaller than cell barcode length %zu + UMI length %zu. Shorten UMI length to %zu!\n", read1_len, cell_blen, umi_len, read1_len - cell_blen);
+                                    umi_len = read1_len - cell_blen;
+                                }
+                                umi = safe_substr(read1.seq.s, cell_blen, umi_len);
+                                binary_umi = barcode_to_binary(umi);
+                                std::cout<<"are we here 273 main"<<std::endl;
+                                feature_id = feature_iter->second.item_id;
+                                collector_pos = n_cat > 0 ? feature_categories[feature_id] : 0;
+
+                                results.emplace_back(collector_pos, cell_iter->second.item_id, binary_umi, feature_id);
+                            }
+                       // }
+                    }
+                }*/
+                std::cout<<"are we here 290 main"<<std::endl;
+
+            }
+            std::cout<<"are we here 293 main"<<std::endl;
+
+            work_mutex.lock();
+            for (result_t& r : results) {
+                dataCollectors[r.collector_pos].insert(r.cell_id, r.umi, r.feature_id);
+            }
+            cnt += thread_read_cnt;
+            printf("Thread %zu processed %d reads. Total %d.\n", i, thread_read_cnt, cnt);
+            work_mutex.unlock();
+        });
+    }
+    std::cout<<"are we here 292 main"<<std::endl;
+
+    for (auto& t : readers) {
+        std::cout<<"are we here 297 main"<<std::endl;
+
+        t.join();
+        std::cout<<"are we here 300 main"<<std::endl;
+
+    }
+    std::cout<<"are we here 295 main"<<std::endl;
+    parser.stop();
 
 
     std::cout << "Hello, World!" << std::endl;
