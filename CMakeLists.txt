@@ -8,7 +8,7 @@ add_executable(FQ_reimplemented main.cpp)
 
 find_library (
         ISAL
-        NAMES isal isa-l # 
+        NAMES isal isa-l #
         HINTS "../../../../../../usr/local/Cellar/isa-l/2.30.0" # UGLY
 )
 
