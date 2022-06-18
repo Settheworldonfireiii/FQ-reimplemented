@@ -9,6 +9,8 @@
 #include <iostream>
 // here a line to think on in conjunction with other lines
 #include <vector>
+#include <mutex>
+
 
 #include <tuple>
 #include <random>
@@ -115,14 +117,14 @@ public:
    std::vector<std::string>::iterator begin() { return group_.begin(); }
    std::vector<std::string>::iterator end() { return group_.begin() + have_; }
 */
-    kseq_t& operator[](size_t i) { return group_[i]; }
-    std::vector<kseq_t>::iterator begin() { return group_.begin(); }
-    std::vector<kseq_t>::iterator end() { return group_.begin() + have_; }
+    Read& operator[](size_t i) { return group_[i]; }
+    std::vector<Read>::iterator begin() { return group_.begin(); }
+    std::vector<Read>::iterator end() { return group_.begin() + have_; }
 
 
 private:
     //std::vector<std::string> group_;
-    std::vector<kseq_t> group_;
+    std::vector<Read> group_;
 
     size_t want_;
     size_t have_;
@@ -148,9 +150,9 @@ public:
         return chunk_->begin() + chunk_->size();
     }*/
 
-    kseq_t& operator[](size_t i) { return (*chunk_)[i]; };
-    typename std::vector<kseq_t>::iterator begin() { return chunk_->begin(); }
-    typename std::vector<kseq_t>::iterator end()
+    Read& operator[](size_t i) { return (*chunk_)[i]; };
+    typename std::vector<Read>::iterator begin() { return chunk_->begin(); }
+    typename std::vector<Read>::iterator end()
     {
 
             return chunk_->begin() + chunk_->size();
@@ -312,11 +314,12 @@ class ReadParser
         while (numParsing_ > 0) {
             std::cout<<"are we here 313"<<std::endl;
              //dummy
-            //if (readQueue_.try_dequeue(seqs.consumerToken(), seqs.chunkPtr())) {
+            if (readQueue_.try_dequeue(seqs.consumerToken(), seqs.chunkPtr()))
+            {
                 std::cout<<"are we here 315"<<std::endl;
 
                 return true;
-            //}
+            }
             backoffOrYield(curMaxDelay);
         }
         std::cout<<"are we here 322"<<std::endl;

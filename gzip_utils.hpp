@@ -8,7 +8,8 @@
 #include <string>
 #include <cstdio>
 
-#include <zlib.h>
+#include "izlib.h"
+//#include <zlib.h>
 #include "kseq.h"
 #include "compress.hpp"
 

@@ -249,22 +249,22 @@ int main(int argc, char* argv[]) {
             std::cout<<"are we here 249 main"<<std::endl;
             //std::cout<<int(rg.size())<<std::endl;
 
-            while (!parser.refill(rg)) {
+            while (parser.refill(rg)) {
                 // should be while (parser.refill(rg)) {
 
                 std::cout<<"are we here 252 main"<<std::endl;
 
-              /*  for (auto& seqPair : rg) {
+               for (auto& seqPair : rg) {
                     std::cout<<"are we here 255 main"<<std::endl;
 
                     auto& read1 = seqPair;
-                    std::cout<<" JE "<<read1.seq.l<<"  ICI"<<std::endl;
+                    std::cout<<" JE "<<read1.seq<<"  ICI"<<std::endl;
                     //auto& read2 = seqPair.second;
                     //std::cout<<" SUIS "<<read2.seq.l<<"  ICI"<<std::endl;
 
                     ++thread_read_cnt;
 
-                    cell_barcode = safe_substr(read1.seq.s, 0, cell_blen);
+                    cell_barcode = safe_substr(read1.seq, 0, cell_blen);
                     binary_cell = barcode_to_binary(cell_barcode);
                     cell_iter = cell_index.find(binary_cell);
 
@@ -273,12 +273,12 @@ int main(int argc, char* argv[]) {
                             binary_feature = barcode_to_binary(feature_barcode);
                             feature_iter = feature_index.find(binary_feature);
                             if (feature_iter != feature_index.end() && feature_iter->second.item_id >= 0) {
-                                read1_len = read1.seq.l;
+                                read1_len = read1.size();
                                 if (read1_len < cell_blen + umi_len) {
                                     printf("Warning: Detected read1 length %zu is smaller than cell barcode length %zu + UMI length %zu. Shorten UMI length to %zu!\n", read1_len, cell_blen, umi_len, read1_len - cell_blen);
                                     umi_len = read1_len - cell_blen;
                                 }
-                                umi = safe_substr(read1.seq.s, cell_blen, umi_len);
+                                umi = safe_substr(read1.seq, cell_blen, umi_len);
                                 binary_umi = barcode_to_binary(umi);
                                 std::cout<<"are we here 273 main"<<std::endl;
                                 feature_id = feature_iter->second.item_id;
@@ -288,7 +288,7 @@ int main(int argc, char* argv[]) {
                             }
                        // }
                     }
-                }*/
+                }
                 std::cout<<"are we here 290 main"<<std::endl;
 
             }
