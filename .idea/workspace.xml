@@ -17,26 +17,30 @@
     <list default="true" id="d374dd1f-b7c8-4981-9bb1-c86a4a9bb9e8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReadParser.h" beforeDir="false" afterPath="$PROJECT_DIR$/ReadParser.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cache-v2-5f9f84c4d520319f6640.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-0865863a5930e5dc6e24.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-71606136987c49d8b45c.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2022-06-18T05-50-42-0308.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-FQ_reimplemented-Debug-6ef258058a091a783a95.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/barcode_utils.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/barcode_utils.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/FQ_reimplemented.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/FQ_reimplemented.dir/main.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/FQ_reimplemented" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/FQ_reimplemented" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igzip_lib.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libdeflate.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/compress.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/compress.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrentqueue.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/concurrentqueue.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datamatrix_utils.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/datamatrix_utils.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gzip_utils.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/gzip_utils.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/aarch64_multibinary.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/crc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/crc64.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/erasure_code.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/gf_vect_mul.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/igzip_lib.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/mem_routines.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/multibinary.asm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/raid.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/reg_sizes.asm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/test.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/unaligned.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/izlib.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/izlib.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kseq.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/kseq.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +78,11 @@
     "cidr.known.project.marker": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/include" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
@@ -94,11 +103,22 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1655665129278</updated>
-      <workItem from="1655665132366" duration="6589000" />
+      <workItem from="1655665132366" duration="7129000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -52,6 +52,7 @@ endif()
 
 include_directories(${LIBDEFLATEINCLUDE})
 
+include_directories(include/)
 
 
 #file(GLOB_RECURSE ISAL_INCLUDE_DIR "/filesystem/usr/local/Cellar/isa-l/2.30.0/include/isa-l/igzip_lib.h")

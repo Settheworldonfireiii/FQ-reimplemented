@@ -52,7 +52,7 @@ build cmake_object_order_depends_target_FQ_reimplemented: phony || CMakeFiles/FQ
 build CMakeFiles/FQ_reimplemented.dir/main.cpp.o: CXX_COMPILER__FQ_reimplemented_Debug /Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented/main.cpp || cmake_object_order_depends_target_FQ_reimplemented
   DEP_FILE = CMakeFiles/FQ_reimplemented.dir/main.cpp.o.d
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++14
-  INCLUDES = -I/usr/local/Cellar/isa-l/2.30.0/include/isa-l -I/usr/local/include
+  INCLUDES = -I/usr/local/Cellar/isa-l/2.30.0/include/isa-l -I/usr/local/include -I/Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented/include
   OBJECT_DIR = CMakeFiles/FQ_reimplemented.dir
   OBJECT_FILE_DIR = CMakeFiles/FQ_reimplemented.dir
 

@@ -32,7 +32,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 59,
+				"line" : 60,
 				"parent" : 0
 			},
 			{
@@ -45,6 +45,12 @@
 				"command" : 2,
 				"file" : 0,
 				"line" : 53,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 55,
 				"parent" : 0
 			}
 		]
@@ -70,6 +76,10 @@
 				{
 					"backtrace" : 4,
 					"path" : "/usr/local/include"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented/include"
 				}
 			],
 			"language" : "CXX",
