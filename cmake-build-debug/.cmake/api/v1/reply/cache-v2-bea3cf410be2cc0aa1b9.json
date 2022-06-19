@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented/cmake-build-debug"
+			"value" : "/Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -139,10 +139,10 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "CXX compiler"
 				}
 			],
-			"type" : "UNINITIALIZED",
+			"type" : "STRING",
 			"value" : "/usr/local/Cellar/gcc/11.3.0_2/bin/g++-11"
 		},
 		{
@@ -267,10 +267,10 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "C compiler"
 				}
 			],
-			"type" : "UNINITIALIZED",
+			"type" : "STRING",
 			"value" : "/usr/local/Cellar/gcc/11.3.0_2/bin/gcc-11"
 		},
 		{
@@ -579,7 +579,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented"
+			"value" : "/Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented"
 		},
 		{
 			"name" : "CMAKE_INSTALL_NAME_TOOL",
@@ -1151,7 +1151,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented/cmake-build-debug"
+			"value" : "/Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented/cmake-build-debug"
 		},
 		{
 			"name" : "FQ_reimplemented_IS_TOP_LEVEL",
@@ -1175,7 +1175,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented"
+			"value" : "/Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented"
 		},
 		{
 			"name" : "ISAL",
@@ -1188,6 +1188,30 @@
 			],
 			"type" : "FILEPATH",
 			"value" : "/usr/local/lib/libisal.dylib"
+		},
+		{
+			"name" : "ISALINCLUDE",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a file."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/usr/local/Cellar/isa-l/2.30.0/include/isa-l"
+		},
+		{
+			"name" : "LIBDEFLATEINCLUDE",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a file."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/usr/local/include"
 		}
 	],
 	"kind" : "cache",

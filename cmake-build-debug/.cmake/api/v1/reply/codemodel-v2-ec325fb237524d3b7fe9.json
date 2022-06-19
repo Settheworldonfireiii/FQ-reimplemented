@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "FQ_reimplemented::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-FQ_reimplemented-Debug-6ef258058a091a783a95.json",
+					"jsonFile" : "target-FQ_reimplemented-Debug-945b926d3054e5e156af.json",
 					"name" : "FQ_reimplemented",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented/cmake-build-debug",
-		"source" : "/Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented"
+		"build" : "/Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented/cmake-build-debug",
+		"source" : "/Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented"
 	},
 	"version" : 
 	{

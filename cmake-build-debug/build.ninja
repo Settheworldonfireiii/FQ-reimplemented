@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented/cmake-build-debug/
+cmake_ninja_workdir = /Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented/cmake-build-debug/
 # =============================================================================
 # Object build statements for EXECUTABLE target FQ_reimplemented
 
@@ -49,9 +49,10 @@ cmake_ninja_workdir = /Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplem
 
 build cmake_object_order_depends_target_FQ_reimplemented: phony || CMakeFiles/FQ_reimplemented.dir
 
-build CMakeFiles/FQ_reimplemented.dir/main.cpp.o: CXX_COMPILER__FQ_reimplemented_Debug /Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented/main.cpp || cmake_object_order_depends_target_FQ_reimplemented
+build CMakeFiles/FQ_reimplemented.dir/main.cpp.o: CXX_COMPILER__FQ_reimplemented_Debug /Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented/main.cpp || cmake_object_order_depends_target_FQ_reimplemented
   DEP_FILE = CMakeFiles/FQ_reimplemented.dir/main.cpp.o.d
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/usr/local/Cellar/isa-l/2.30.0/include/isa-l -I/usr/local/include
   OBJECT_DIR = CMakeFiles/FQ_reimplemented.dir
   OBJECT_FILE_DIR = CMakeFiles/FQ_reimplemented.dir
 
@@ -77,7 +78,7 @@ build FQ_reimplemented: CXX_EXECUTABLE_LINKER__FQ_reimplemented_Debug CMakeFiles
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -88,7 +89,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented -B/Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented/cmake-build-debug
+  COMMAND = cd /Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented -B/Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented/cmake-build-debug
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -104,7 +105,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 #############################################
-# Folder: /Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented/cmake-build-debug
+# Folder: /Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented/cmake-build-debug
 
 build all: phony FQ_reimplemented
 

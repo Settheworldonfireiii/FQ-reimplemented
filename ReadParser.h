@@ -313,7 +313,7 @@ class ReadParser
 
         while (numParsing_ > 0) {
             std::cout<<"are we here 313"<<std::endl;
-             //dummy
+             //dummy, should be w o !
             if (readQueue_.try_dequeue(seqs.consumerToken(), seqs.chunkPtr()))
             {
                 std::cout<<"are we here 315"<<std::endl;

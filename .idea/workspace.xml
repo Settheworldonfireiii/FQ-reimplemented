@@ -14,12 +14,29 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bfbd3fbe-47f7-4e5e-b8a1-3c49c092f968" name="Changes" comment="">
+    <list default="true" id="d374dd1f-b7c8-4981-9bb1-c86a4a9bb9e8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2022-06-18T05-45-38-0799.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReadParser.h" beforeDir="false" afterPath="$PROJECT_DIR$/ReadParser.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cache-v2-5f9f84c4d520319f6640.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-0865863a5930e5dc6e24.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-71606136987c49d8b45c.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2022-06-18T05-50-42-0308.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-FQ_reimplemented-Debug-6ef258058a091a783a95.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/FQ_reimplemented.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/FQ_reimplemented.dir/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/FQ_reimplemented" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/FQ_reimplemented" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igzip_lib.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libdeflate.h" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,18 +58,20 @@
     <option name="majorVersion" value="2022" />
     <option name="minorVersion" value="1.1" />
   </component>
-  <component name="ProjectId" id="2AiBy4Sq2Do55lt8fW0YjVZOEXO" />
+  <component name="ProjectId" id="2Ao9ZmjfQlv2P204see2Csiz4ts" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "WebServerToolWindowFactoryState": "false",
     "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "settings.editor.selected.configurable": "CMakeSettings"
+    "cidr.known.project.marker": "true"
   }
 }]]></component>
   <component name="RunManager">
@@ -61,7 +80,7 @@
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FQ_reimplemented" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="$PROJECT_DIR$/../feature_barcoding_test/3M-february-2018.txt $PROJECT_DIR$/../feature_barcoding_test/antibody_index.csv $PROJECT_DIR$/../feature_barcoding_test/LIB5450890_SAM24409916_input LIB5450882_SAM24409916 --max-mismatch-feature 3 --feature antibody --max-mismatch-cell 0 --umi-length 12" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FQ_reimplemented" TARGET_NAME="FQ_reimplemented" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="FQ_reimplemented" RUN_TARGET_NAME="FQ_reimplemented">
+    <configuration name="FQ_reimplemented" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="$PROJECT_DIR$/../../cumulus_barcode/feature_barcoding_test/3M-february-2018.txt $PROJECT_DIR$/../../cumulus_barcode/feature_barcoding_test/antibody_index.csv $PROJECT_DIR$/../../cumulus_barcode/feature_barcoding_test/LIB5450890_SAM24409916_input LIB5450882_SAM24409916 --max-mismatch-feature 3 --feature antibody --max-mismatch-cell 0 --umi-length 12" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FQ_reimplemented" TARGET_NAME="FQ_reimplemented" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="FQ_reimplemented" RUN_TARGET_NAME="FQ_reimplemented">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -70,14 +89,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="bfbd3fbe-47f7-4e5e-b8a1-3c49c092f968" name="Changes" comment="" />
-      <created>1655482776470</created>
+      <changelist id="d374dd1f-b7c8-4981-9bb1-c86a4a9bb9e8" name="Changes" comment="" />
+      <created>1655665129278</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1655482776470</updated>
-      <workItem from="1655482777985" duration="5415000" />
-      <workItem from="1655523687151" duration="1755000" />
-      <workItem from="1655527127544" duration="3884000" />
+      <updated>1655665129278</updated>
+      <workItem from="1655665132366" duration="6589000" />
     </task>
     <servers />
   </component>

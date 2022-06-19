@@ -130,8 +130,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented/cmake-build-debug",
-		"source" : "/Users/radkevii/Documents/work/cumulus_barcode/FQ-reimplemented"
+		"build" : "/Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented/cmake-build-debug",
+		"source" : "/Users/radkevii/Documents/work/cumulus_feature_barcoding/FQ-reimplemented"
 	},
 	"version" : 
 	{
