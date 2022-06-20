@@ -1,1 +1,0 @@
-g++ -g -Wall -L/usr/local/Cellar/isa-l/2.30.0/lib -lisal main.cpp
