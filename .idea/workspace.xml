@@ -14,12 +14,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bfbd3fbe-47f7-4e5e-b8a1-3c49c092f968" name="Changes" comment="">
+    <list default="true" id="5e41339e-4d34-415f-9e58-122d98254b3e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2022-06-18T05-45-38-0799.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,27 +37,29 @@
     <option name="majorVersion" value="2022" />
     <option name="minorVersion" value="1.1" />
   </component>
-  <component name="ProjectId" id="2AiBy4Sq2Do55lt8fW0YjVZOEXO" />
+  <component name="ProjectId" id="2Arw7AwAJZfDAfn1cnisVuvuafe" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "settings.editor.selected.configurable": "CMakeSettings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="FQ_reimplemented" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="test.cpp 2 2 4 $PROJECT_DIR$/../../../cumulus_barcode/feature_barcoding_test/LIB5450890_SAM24409916_input/LIB5450882_SAM24409916_S1_L001_R1_001.fastq.gz $PROJECT_DIR$/../../../cumulus_barcode/feature_barcoding_test/LIB5450890_SAM24409916_input/LIB5450882_SAM24409916_S1_L001_R2_001.fastq.gz $PROJECT_DIR$/../../../cumulus_barcode/feature_barcoding_test/LIB5450890_SAM24409916_input/LIB5450882_SAM24409916_S1_L002_R1_001.fastq.gz" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FQ_reimplemented" TARGET_NAME="FQ_reimplemented" CONFIG_NAME="Debug" RUN_PATH="$PROJECT_DIR$/test.cpp">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FQ_reimplemented" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="$PROJECT_DIR$/../feature_barcoding_test/3M-february-2018.txt $PROJECT_DIR$/../feature_barcoding_test/antibody_index.csv $PROJECT_DIR$/../feature_barcoding_test/LIB5450890_SAM24409916_input LIB5450882_SAM24409916 --max-mismatch-feature 3 --feature antibody --max-mismatch-cell 0 --umi-length 12" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FQ_reimplemented" TARGET_NAME="FQ_reimplemented" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="FQ_reimplemented" RUN_TARGET_NAME="FQ_reimplemented">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -70,18 +68,28 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="bfbd3fbe-47f7-4e5e-b8a1-3c49c092f968" name="Changes" comment="" />
-      <created>1655482776470</created>
+      <changelist id="5e41339e-4d34-415f-9e58-122d98254b3e" name="Changes" comment="" />
+      <created>1655780841281</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1655482776470</updated>
-      <workItem from="1655482777985" duration="5415000" />
-      <workItem from="1655523687151" duration="1755000" />
-      <workItem from="1655527127544" duration="3884000" />
+      <updated>1655780841281</updated>
+      <workItem from="1655780844321" duration="380000" />
+      <workItem from="1655781242138" duration="261000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
