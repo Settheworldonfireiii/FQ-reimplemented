@@ -16,31 +16,14 @@
   <component name="ChangeListManager">
     <list default="true" id="d374dd1f-b7c8-4981-9bb1-c86a4a9bb9e8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barcode_utils.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/barcode_utils.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReadParser.h" beforeDir="false" afterPath="$PROJECT_DIR$/ReadParser.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/FQ_reimplemented.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/FQ_reimplemented.dir/main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/FQ_reimplemented" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/FQ_reimplemented" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compress.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/compress.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/concurrentqueue.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/concurrentqueue.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datamatrix_utils.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/datamatrix_utils.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gzip_utils.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/gzip_utils.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/aarch64_multibinary.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/crc.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/crc64.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/erasure_code.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/gf_vect_mul.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/igzip_lib.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/mem_routines.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/multibinary.asm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/raid.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reg_sizes.asm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/test.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/unaligned.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/izlib.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/izlib.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kseq.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/kseq.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/kseq.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/kseq.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +58,8 @@
     "RunOnceActivity.cidr.known.project.marker": "true",
     "WebServerToolWindowFactoryState": "false",
     "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true"
+    "cidr.known.project.marker": "true",
+    "structure.view.defaults.are.configured": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -84,12 +68,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FQ_reimplemented" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="$PROJECT_DIR$/../../cumulus_barcode/feature_barcoding_test/3M-february-2018.txt $PROJECT_DIR$/../../cumulus_barcode/feature_barcoding_test/antibody_index.csv $PROJECT_DIR$/../../cumulus_barcode/feature_barcoding_test/LIB5450890_SAM24409916_input LIB5450882_SAM24409916 --max-mismatch-feature 3 --feature antibody --max-mismatch-cell 0 --umi-length 12" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FQ_reimplemented" TARGET_NAME="FQ_reimplemented" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="FQ_reimplemented" RUN_TARGET_NAME="FQ_reimplemented">
+    <configuration name="FQ_reimplemented" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="2 2 4 $PROJECT_DIR$/../../cumulus_barcode/feature_barcoding_test/LIB5450882_SAM24409916_input/LIB5450882_SAM24409916_S1_L001_R1_001.fastq.gz" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FQ_reimplemented" TARGET_NAME="FQ_reimplemented" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="FQ_reimplemented" RUN_TARGET_NAME="FQ_reimplemented">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -103,7 +82,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1655665129278</updated>
-      <workItem from="1655665132366" duration="7129000" />
+      <workItem from="1655665132366" duration="8019000" />
+      <workItem from="1655752357452" duration="16864000" />
+      <workItem from="1655781239590" duration="38483000" />
     </task>
     <servers />
   </component>

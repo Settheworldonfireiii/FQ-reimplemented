@@ -12,8 +12,13 @@
 #include <mutex>
 
 
+
+
 #include <tuple>
 #include <random>
+
+
+
 
 #if defined(__SSE2__)
 #if defined(HAVE_SIMDE)
@@ -102,30 +107,39 @@ ALWAYS_INLINE void backoffOrYield(size_t& curMaxDelay) {
 
 KSEQ_INIT(gzFile, gzread)
 
+
+
+
+struct ReadTuple {
+    std::vector<Read> mates;
+
+    ReadTuple(int n_mates) : mates(n_mates) {}
+    Read& operator[](int i) { return mates[i]; }
+};
+
 class ReadChunk {
 public:
-    ReadChunk(size_t want) : group_(want), want_(want), have_(want) {}
+    ReadChunk(size_t want, int n_mates=2) : group_(want, ReadTuple(n_mates)), want_(want), have_(want) {}
     inline void have(size_t num) { have_ = num; }
     inline size_t size() { return have_; }
     inline size_t want() const { return want_; }
-   /* T& operator[](size_t i) { return group_[i]; }
-    typename std::vector<T>::iterator begin() { return group_.begin(); }
-    typename std::vector<T>::iterator end() { return group_.begin() + have_; }
-*/
+    /* T& operator[](size_t i) { return group_[i]; }
+     typename std::vector<T>::iterator begin() { return group_.begin(); }
+     typename std::vector<T>::iterator end() { return group_.begin() + have_; }
+ */
 
-  /* std::string& operator[](size_t i) { return group_[i]; }
-   std::vector<std::string>::iterator begin() { return group_.begin(); }
-   std::vector<std::string>::iterator end() { return group_.begin() + have_; }
-*/
-    Read& operator[](size_t i) { return group_[i]; }
-    std::vector<Read>::iterator begin() { return group_.begin(); }
-    std::vector<Read>::iterator end() { return group_.begin() + have_; }
+    /* std::string& operator[](size_t i) { return group_[i]; }
+     std::vector<std::string>::iterator begin() { return group_.begin(); }
+     std::vector<std::string>::iterator end() { return group_.begin() + have_; }
+  */
+    ReadTuple& operator[](size_t i) { return group_[i]; }
+    std::vector<ReadTuple>::iterator begin() { return group_.begin(); }
+    std::vector<ReadTuple>::iterator end() { return group_.begin() + have_; }
 
 
 private:
     //std::vector<std::string> group_;
-    std::vector<Read> group_;
-
+    std::vector<ReadTuple> group_;
     size_t want_;
     size_t have_;
 };
@@ -150,9 +164,9 @@ public:
         return chunk_->begin() + chunk_->size();
     }*/
 
-    Read& operator[](size_t i) { return (*chunk_)[i]; };
-    typename std::vector<Read>::iterator begin() { return chunk_->begin(); }
-    typename std::vector<Read>::iterator end()
+    ReadTuple& operator[](size_t i) { return (*chunk_)[i]; };
+    typename std::vector<ReadTuple>::iterator begin() { return chunk_->begin(); }
+    typename std::vector<ReadTuple>::iterator end()
     {
 
             return chunk_->begin() + chunk_->size();
@@ -168,17 +182,23 @@ private:
 };
 
 
-class ReadParser
-        {
-        public:
+class ReadParser {
+public:
     // ReadParser(std::vector<std::string> files, uint32_t numConsumers, uint32_t numParsers = 1, uint32_t chunkSize = 1000)
 
-    ReadParser(std::vector<std::vector<std::string>> files, uint32_t numConsumers, uint32_t numParsers = 1, uint32_t chunkSize = 1000)
-    : inputStreams_(files),blockSize_(chunkSize)
-    {
+    ReadParser(std::vector<std::vector<std::string>> files, uint32_t numConsumers, uint32_t numParsers = 1,
+               uint32_t chunkSize = 1000)
+            : filestreams_(files), blockSize_(chunkSize) {
 
+        //  int n_files = files.size();
+      //  std::cout << "ici 190" << std::endl;
         numParsers_ = numParsers;
-        numParsing_ = 0;
+        if (numParsers_ > files.size()) {
+            std::cout << "need more parsers" << std::endl;
+            numParsers_ = files.size();
+
+        }
+
 
         readQueue_ = moodycamel::ConcurrentQueue<std::unique_ptr<ReadChunk>>(
                 4 * numConsumers, numParsers, 0);
@@ -191,143 +211,121 @@ class ReadParser
 
         // push all file ids on the queue
         for (size_t i = 0; i < files.size(); ++i) {
-            workQueue_.enqueue(i);
+            assert(workQueue_.enqueue(i));
         }
 
         // every parsing thread gets a consumer token for the seqContainerQueue
         // and a producer token for the readQueue.
+
+        // Each parser should have a consumer token for spaceQueue_ to get empty spaces and one producer token for the readQueue_ to load reads
         for (size_t i = 0; i < numParsers_; ++i) {
-            consumeContainers_.emplace_back(
-                    new moodycamel::ConsumerToken(seqContainerQueue_));
+            consumeContainers_.emplace_back(new moodycamel::ConsumerToken(seqContainerQueue_));
             produceReads_.emplace_back(new moodycamel::ProducerToken(readQueue_));
         }
 
         // enqueue the appropriate number of read chunks so that we can start
         // filling them once the parser has been started.
+
+        // create empty chunks and push to spaceQueue_
         moodycamel::ProducerToken produceContainer(seqContainerQueue_);
         for (size_t i = 0; i < 4 * numConsumers; ++i) {
             auto chunk = std::make_unique<ReadChunk>(blockSize_);
             seqContainerQueue_.enqueue(produceContainer, std::move(chunk));
         }
+
+       // IF ANYTHING RESTORE
+        /*numParsing_ = 0;
+        for (int i = 0; i < numParsers; ++i) {
+            ++numParsing_;
+            parsingThreads_.emplace_back(new std::thread([this, i]() {
+                this->parse_read_tuples(this->consumeContainers_[i].get(), this->produceReads_[i].get());
+            }));
+        }*/
     };
 
 
-    ~ReadParser()
-    {
-        if (isActive_ or numParsing_ > 0) {
-            // Think about if this is too noisy --- but the user really shouldn't do this.
-            std::cerr << "\n\nEncountered ReadParser destructor while parser was still marked active (or while parsing threads were still active). "
-                      << "Be sure to call stop() before letting ReadParser leave scope!\n";
-            try {
-                stop();
-            } catch (const std::exception& e) {
-                // Should exiting here be a user-definable behavior?
-                // What is the right mechanism for that.
-                std::cerr << "\n\nParser encountered exception : " << e.what() << "\n";
-                std::exit(-1);
-            }
-        }
+    ~ReadParser() {
+        //std::cout<<"aargh 248"<<std::endl;
+        for (auto& thread: parsingThreads_) thread->join();
+       // std::cout<<"aargh 266"<<std::endl;
         // Otherwise, we are good to go (i.e., destruct)
     };
     bool start() {
+        numParsing_ = 0;
+
         if (numParsing_ == 0) {
             isActive_ = true;
-            // Some basic checking to ensure the read files look "sane".
-//            if (inputStreams_.size() != inputStreams2_.size()) {
-//                throw std::invalid_argument("There should be the same number "
-//                                            "of files for the left and right reads");
-//            }
 
 
-            for (size_t i = 0; i < inputStreams_.size(); ++i) {
-                auto& s = inputStreams_[i];
- //               auto& s2 = inputStreams2_[i];
-                /*if (s1 == s2) {
-                    throw std::invalid_argument("You provided the same file " + s1 +
-                                                " as both a left and right file");
-                }*/
+
+            for (size_t i = 0; i < filestreams_.size(); ++i) {
+                auto &s = filestreams_[i];
+
             }
             threadResults_.resize(numParsers_);
             std::fill(threadResults_.begin(), threadResults_.end(), 0);
 
+
+            //std::cout << numParsers_ << std::endl;
             for (size_t i = 0; i < numParsers_; ++i) {
                 ++numParsing_;
                 parsingThreads_.emplace_back(new std::thread([this, i]() {
-                    this->threadResults_[i] = parse_read_tuples(this->inputStreams_,
-                                                               this->numParsing_, this->consumeContainers_[i].get(),
-                                                               this->produceReads_[i].get(), this->workQueue_,
-                                                               this->seqContainerQueue_, this->readQueue_);
+                    this->threadResults_[i] = parse_read_tuples(this->consumeContainers_[i].get(),
+                                                                this->produceReads_[i].get());
 
                 }));
-                std::cout<<"or we here 153"<<std::endl;
             }
-            std::cout<<"or we here 155"<<std::endl;
 
             return true;
         } else {
-            std::cout<<"or we here 158"<<std::endl;
 
             return false;
         }
     }
-    bool stop()
-    {
-        bool ret{false};
-        if (isActive_) {
-            for (auto& t : parsingThreads_) {
-                t->join();
-            }
-            isActive_ = false;
-            for (auto& res : threadResults_) {
-                if (res == -3) {
-                    throw std::range_error("Error reading from the FASTA/Q stream. Make sure the file is valid.");
-                } else if (res < -1) {
-                    std::stringstream ss;
-                    ss << "Error reading from the FASTA/Q stream. Minimum return code for left and right read was ("
-                       << res << "). Make sure the file is valid.";
-                    throw std::range_error(ss.str());
-                }
-            }
-            ret = true;
-        } else {
-            // Is this being too loud?  Again, if this triggers, the user has violated the API.
-            std::cerr << "stop() was called on a FastxParser that was not marked active. Did you remember "
-                      << "to call start() on this parser?\n";
-        }
-        std::cout<<"are we here 295"<<std::endl;
+
+
+    bool stop() {
+       // std::cout<<"aargh 248"<<std::endl;
+        for (auto& thread: parsingThreads_) thread->detach();
+        numParsing_--;
+       // std::cout<<"aargh 266"<<std::endl;
+        bool ret = true;
         return ret;
 
     };
-    ReadGroup getReadGroup()
-    {
+
+    ReadGroup getReadGroup() {
         return ReadGroup(getProducerToken_(), getConsumerToken_());
     };
 
-    bool refill(ReadGroup& seqs)
-    {
-        std::cout<<"are we here 306"<<std::endl;
+    bool refill(ReadGroup &seqs) {
 
+
+
+
+        if (!seqs.empty()) {
+            assert(seqContainerQueue_.enqueue(seqs.producerToken(), std::move(seqs.chunkPtr())));
+            assert(seqs.empty());
+        }
         finishedWithGroup(seqs);
         auto curMaxDelay = MIN_BACKOFF_ITERS;
-        std::cout<<"are we here 310"<<std::endl;
+
 
         while (numParsing_ > 0) {
-            std::cout<<"are we here 313"<<std::endl;
-             //dummy, should be w o !
-            if (readQueue_.try_dequeue(seqs.consumerToken(), seqs.chunkPtr()))
-            {
-                std::cout<<"are we here 315"<<std::endl;
+
+            if (readQueue_.try_dequeue(seqs.consumerToken(), seqs.chunkPtr())) {
+
 
                 return true;
             }
+
             backoffOrYield(curMaxDelay);
         }
-        std::cout<<"are we here 322"<<std::endl;
 
         return readQueue_.try_dequeue(seqs.consumerToken(), seqs.chunkPtr());
     };
-    void finishedWithGroup(ReadGroup& s)
-    {
+
+    void finishedWithGroup(ReadGroup &s) {
         {
             // If this read group is holding a valid chunk, then give it back
             if (!s.empty()) {
@@ -338,20 +336,16 @@ class ReadParser
     };
 
 
-
-
-
 private:
-    moodycamel::ProducerToken getProducerToken_()
-    {
+    moodycamel::ProducerToken getProducerToken_() {
         return moodycamel::ProducerToken(seqContainerQueue_);
     };
-    moodycamel::ConsumerToken getConsumerToken_()
-    {
+
+    moodycamel::ConsumerToken getConsumerToken_() {
         return moodycamel::ConsumerToken(readQueue_);
     };
 
-    std::vector<std::vector<std::string>> inputStreams_;
+    std::vector<std::vector<std::string>> filestreams_;
     uint32_t numParsers_;
     std::atomic<uint32_t> numParsing_;
 
@@ -377,44 +371,68 @@ private:
     bool isActive_{false};
 
 
-    int parse_read_tuples(std::vector<std::vector<std::string>> inputStreams, std::atomic<uint32_t>& numParsing,
-                          moodycamel::ConsumerToken* cCont, moodycamel::ProducerToken* pRead,
-                          moodycamel::ConcurrentQueue<uint32_t>& workQueue,
-                          moodycamel::ConcurrentQueue<std::unique_ptr<ReadChunk>>&
-                          seqContainerQueue_,
-                          moodycamel::ConcurrentQueue<std::unique_ptr<ReadChunk>>& readQueue_)
-    {
+    int parse_read_tuples(
+                          moodycamel::ConsumerToken *cCont, moodycamel::ProducerToken *pRead) {
 
-        auto curMaxDelay = MIN_BACKOFF_ITERS;
-        std::string* s;
+        //using namespace klibpp;
+
+        size_t curMaxDelay = MIN_BACKOFF_ITERS;
+        std::unique_ptr<ReadChunk> local;
+        std::vector<iGZipFile> input_streams;
+        uint32_t cur_waiting;
+
+        cur_waiting = 0;
+        while (!seqContainerQueue_.try_dequeue(*cCont, local)) backoffOrYield(curMaxDelay);
+
+        ReadTuple *s;
+
         uint32_t fn{0};
+        //std::cout<<inputfiles[0][fn]<<"  inputfiles[0][fn] "<<std::endl;
+       // std::cout << filestreams_[0][fn] << "  filestreams_[0][fn]   " << std::endl;
+        s = &((*local)[cur_waiting]);
 
-        while (workQueue.try_dequeue(fn))
-        {
-           size_t numfiles = inputStreams.size();
-           const int nf = numfiles;
-           //constexpr int nuf = nf;
-           // std::tuple::tuple<string>()
-           std::tuple<std::vector<std::string>> files;
-          // std::tuple<std::make_index_sequence<nf>> tpl;
-            for(int i = 0; i <numfiles; i++)
-            {
-
+        while (workQueue_.try_dequeue(fn)) {
+            input_streams.clear();
+            for (size_t i = 0; i < filestreams_.size(); ++i) {
+                input_streams.emplace_back(filestreams_[fn][i]);
             }
-            using index_sequence_for = std::make_index_sequence<sizeof(numfiles)>;
+            int cnt = 0;
+            for (int i = 0; i < filestreams_.size(); ++i)
+            {
+                cnt += input_streams[i].next((*s)[i]);
+            }
 
-            auto& file = inputStreams[numfiles][fn];
+            while (cnt > 0) {
+                ++cur_waiting;
+                if (cur_waiting == blockSize_) {
+                    //local->size() = fn; //change have_
+                    local->have(cur_waiting);
+                    curMaxDelay = MIN_BACKOFF_ITERS;
+                    while (!readQueue_.try_enqueue(*pRead, std::move(local))) backoffOrYield(curMaxDelay);
+                    cur_waiting = 0;
+                    curMaxDelay = MIN_BACKOFF_ITERS;
+                    while (!seqContainerQueue_.try_dequeue(*cCont, local)) backoffOrYield(curMaxDelay);
+                }
+                s = &((*local)[cur_waiting]);
+                cnt = 0;
+                for (int i = 0; i < filestreams_.size(); ++i)
+                {
+                    cnt += input_streams[i].next((*s)[i]);
+                }
+            }
 
-            Read rd;
+            if (fn > 0) {
+                local->have(cur_waiting);
+                curMaxDelay = MIN_BACKOFF_ITERS;
+                while (!readQueue_.try_enqueue(*pRead, std::move(local))) backoffOrYield(curMaxDelay);
+            }
 
+
+            --numParsing_;
+            return 0;
         }
-        std::cout<<"are we here?398"<<std::endl;
-        return 0;
 
-        //while (rd and (kseq_read(seq2) > 0)) {
-
-        }
     };
+};
 
-
-#endif //FQ_REIMPLEMENTED_READPARSER_H
+#endif FQ_REIMPLEMENTED_READPARSER_H
