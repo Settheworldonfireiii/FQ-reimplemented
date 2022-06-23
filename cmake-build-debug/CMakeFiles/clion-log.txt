@@ -1,0 +1,23 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -DCMAKE_C_COMPILER=/usr/local/Cellar/gcc/11.3.0_2/bin/gcc-11 -DCMAKE_CXX_COMPILER=/usr/local/Cellar/gcc/11.3.0_2/bin/g++-11 -G Ninja -S /Users/radkevii/Documents/work/cumulus_feature_barcoding/bo-fq/FQ-reimplemented -B /Users/radkevii/Documents/work/cumulus_feature_barcoding/bo-fq/FQ-reimplemented/cmake-build-debug
+-- ISAL:: [/usr/local/lib/libisal.dylib]
+-- ISALNCLUDE => ISALINCLUDE-NOTFOUND
+-- LIBDEFLATEINCLUDE => 
+-- Configuring done
+CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
+Please set them or make sure they are set and tested correctly in the CMake files:
+ISALINCLUDE
+   used as include directory in directory /Users/radkevii/Documents/work/cumulus_feature_barcoding/bo-fq/FQ-reimplemented
+   used as include directory in directory /Users/radkevii/Documents/work/cumulus_feature_barcoding/bo-fq/FQ-reimplemented
+   used as include directory in directory /Users/radkevii/Documents/work/cumulus_feature_barcoding/bo-fq/FQ-reimplemented
+
+CMake Error at CMakeLists.txt:6 (add_executable):
+  Cannot find source file:
+
+    main.cpp
+
+
+CMake Error at CMakeLists.txt:6 (add_executable):
+  No SOURCES given to target: FQ_reimplemented
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.
