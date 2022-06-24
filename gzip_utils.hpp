@@ -61,6 +61,7 @@ struct iGZipFile {
 			aread.comment = sequence_kseq->comment.s;
 			aread.seq = sequence_kseq->seq.s;
 			aread.qual = sequence_kseq->is_fastq ? sequence_kseq->qual.s : "";
+            //std::cout<<"length "<<length<<std::endl;
 		}
 		else if (length == -1) 
 			return false; // End of file

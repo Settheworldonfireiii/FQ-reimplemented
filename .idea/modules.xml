@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/FQ-reimplemented.iml" filepath="$PROJECT_DIR$/.idea/FQ-reimplemented.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/FQ_reimplemented.iml" filepath="$PROJECT_DIR$/.idea/FQ_reimplemented.iml" />
     </modules>
   </component>
 </project>

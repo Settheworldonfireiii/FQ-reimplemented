@@ -20,13 +20,13 @@ int main(int argc, char* argv[]) {
        // cerr << "usage: test np nt chunk_size fa1 fb1 ... fa2 fb2 ..."<< endl;
        cerr << "usage: test np nt chunk_size fq1 fq2 ..."<< endl;
        return 1;
-   } 
+   }
    int numFiles = argc - 4;
    // if (numFiles % 2 != 0) {
    //     cerr << "you must provide an even number of files!\n";
    //     return 1;
    // }
-   
+
    int np = atoi(argv[1]);
    int nt = atoi(argv[2]);
    size_t chunk_size = atoi(argv[3]);
@@ -60,7 +60,7 @@ int main(int argc, char* argv[]) {
           for (auto& read_tuple : rg) {
             ++lctr;
 
-            for (int j = 0; j < read_tuple.mates.size(); ++j) {
+            for (int j = 0; j < read_tuple.getMates().size(); ++j) {
               for (size_t k = 0; k < read_tuple[j].seq.length(); ++k) {
                 char c = read_tuple[j].seq[k];
                 switch (c) {
